@@ -10,19 +10,33 @@ unsigned num;
 unsigned loc(int i, int j) const throw(out_of_range){
   int di=i-base, dj=j-base;  
       if (di<0 || dj<0 || di>=n || dj>=n || (di+dj)%2!=0) throw out_of_range("wrong index");
-      
+
 }
 
 class Row {
+
+ChessBoardArray &board;
+int row;
+
   public:
-  Row(ChessBoardArray &a, int i);
-  int & operator [] (int i) const;
+  Row(ChessBoardArray &a, int i):
+  board(a); row(i); {}
+  int & operator [] (int i) const{
+    return board.select(row, i);
+  }
 };
 
 class ConstRow {
+
+const ChessBoardArray &board;
+int row;
+
 public:
-  ConstRow(const ChessBoardArray &a, int i);
-  int operator [] (int i) const;
+  ConstRow(const ChessBoardArray &a, int i):
+  board(a); row(i); {}
+  int operator [] (int i) const{
+    return board.select(row, i);
+  }
 };
 
 public:
