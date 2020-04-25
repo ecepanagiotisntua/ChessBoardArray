@@ -13,7 +13,7 @@ unsigned num;
 unsigned loc(int i, int j) const throw(logic_error){
   int di=i-base, dj=j-base;  
       if (di<0 || dj<0 || di>=num || dj>=num || (di+dj)%2!=0) throw logic_error("wrong index");
-    return di*(num+1)/2 + dj/2;
+    return ((di+1)/2)*((num+1)/2)+(di/2)*(num/2)+dj/2;
 
 }
 
