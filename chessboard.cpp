@@ -10,6 +10,7 @@ unsigned num;
 unsigned loc(int i, int j) const throw(out_of_range){
   int di=i-base, dj=j-base;  
       if (di<0 || dj<0 || di>=n || dj>=n || (di+dj)%2!=0) throw out_of_range("wrong index");
+    return di*(n+1)/2 + dj/2;
 
 }
 
@@ -78,5 +79,15 @@ public:
    return ConstRow(*this, i);
  }
 
- friend ostream & operator << (ostream &out, const ChessBoardArray &a);
+ friend ostream & operator << (ostream &out, const ChessBoardArray &a){
+   for (int i = 0; i < n ; i++){
+    for (int j = 0; j < n ; j++)
+    if ((i+j)%2==0){
+      out << setw(4) << a[i+a.base][j+a.base];
+    }
+    else out<<setw(4)<<0;
+    out<<endl;
+   }
+   return out;
+ }
 };
