@@ -10,9 +10,9 @@ protected:
 int *data;
 int base;
 unsigned num;
-unsigned loc(int i, int j) const throw(logic_error){
+unsigned loc(int i, int j) const throw(out_of_range){
   int di=i-base, dj=j-base;  
-      if (di<0 || dj<0 || di>=num || dj>=num || (di+dj)%2!=0) throw logic_error("wrong index");
+      if (di<0 || dj<0 || di>=num || dj>=num || (di+dj)%2!=0) throw out_of_range("wrong index");
     return ((di+1)/2)*((num+1)/2)+(di/2)*(num/2)+dj/2;
 
 }
@@ -100,6 +100,13 @@ public:
  }
 };
 
-int main(){
-  return 0;
+int main() {
+ChessBoardArray a(4, 1); // size 4x4, rows and columns numbered from 1
+a[3][1] = 42;
+a[4][4] = 17;
+try { a[2][1] = 7; }
+catch(out_of_range &e) { cout << "a[2][1] is black" << endl; }
+try { cout << a[1][2] << endl; }
+catch(out_of_range &e) { cout << "and so is a[1][2]" << endl; }
+cout << a;
 }
